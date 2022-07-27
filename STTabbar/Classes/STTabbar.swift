@@ -150,18 +150,24 @@ public final class STTabbar: UITabBar, UITabBarDelegate {
         return path.cgPath
     }
     
-    private func setupMiddleButton() {
-        
-        centerButton = UIButton(frame: CGRect(x: (self.bounds.width / 2)-(centerButtonHeight/2), y: -4, width: centerButtonHeight, height: centerButtonHeight))
-        
-        centerButton.layer.cornerRadius = centerButton.frame.size.width / 2.0
-        centerButton.setImage(UIImage(named: "TabBar/SelectedCenterbutton"), for: .normal)
-        centerButton.tintColor = UIColor.white
-
-        //add to the tabbar and add click event
-        self.addSubview(centerButton)
-        centerButton.addTarget(self, action: #selector(self.centerButtonAction), for: .touchUpInside)
-    }
+	private func setupMiddleButton() {
+		centerButton.removeFromSuperview()
+		centerButton = UIButton(frame: CGRect(x: (self.bounds.width / 2)-(centerButtonHeight/2), y: -4, width: centerButtonHeight, height: centerButtonHeight))
+		
+		centerButton.layer.cornerRadius = centerButton.frame.size.width / 2.0
+		if UserDefaults.standard.value(forKey: "IsTabBar") as! String == "FromChat"{
+			centerButton.setImage(UIImage(named: "TabBar/UnselectedCenterButton"), for: .normal)
+		}else{
+			centerButton.setImage(UIImage(named: "TabBar/SelectedCenterbutton"), for: .normal)
+		}
+		
+		centerButton.tintColor = UIColor.white
+		
+		//add to the tabbar and add click event
+		self.addSubview(centerButton)
+		
+		centerButton.addTarget(self, action: #selector(self.centerButtonAction), for: .touchUpInside)
+	}
     
     // Menu Button Touch Action
      @objc func centerButtonAction(sender: UIButton) {
