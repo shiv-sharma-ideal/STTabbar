@@ -170,13 +170,19 @@ public final class STTabbar: UITabBar, UITabBarDelegate {
 	}
     
     // Menu Button Touch Action
-     @objc func centerButtonAction(sender: UIButton) {
+    @objc
+    func centerButtonAction(sender: UIButton) {
         centerButton.setImage(UIImage(named: "TabBar/SelectedCenterbutton"), for: .normal)
         self.centerButtonActionHandler()
-     }
+    }
 
-    @objc func changeButtonImageAction(notification: Notification) {
-        centerButton.setImage(UIImage(named: "TabBar/UnselectedCenterButton"), for: .normal)
+    @objc
+    func changeButtonImageAction(notification: Notification) {
+        if UserDefaults.standard.string(forKey: "IsTabBar") ?? "" == "FromHome" {
+            centerButton.setImage(UIImage(named: "TabBar/SelectedCenterbutton"), for: .normal)
+        } else {
+            centerButton.setImage(UIImage(named: "TabBar/UnselectedCenterButton"), for: .normal)
+        }
     }
 
 }
